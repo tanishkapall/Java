@@ -4,9 +4,10 @@ public class ArrayListOfBooks
     public static void main(String[] args) 
     {
         Book b1 = new Book();
-        Book b4 = b1;
+        Book b4 = new Book(b1);
         b4.title = "1984";
         b4.price = 7.99;
+        b4.genre = "Fiction";
         ArrayList<Book> library = new ArrayList<Book>();
         
         try {
@@ -26,13 +27,24 @@ public class ArrayListOfBooks
         }
 
         try {
-            Book b5 = new Book("The Great Gatsby", "Fitzgerald", -10.99, "Classic", "978-0743273565");
+            Book b5 = new Book("The Great Gatsby", "Fitzgerald", -10.99, "Fiction", "978-0743273565");
             library.add(b5);
         } catch (TitleExp | InvalidPriceException e) {
             System.out.println(e.getMessage());
         }
 
+        double sum = 0;
+        for (Book b : library) {
+            sum += b.price;
+        }
+        double average = sum / library.size();
+        System.out.println("Average price of books: " + average);
 
+        library.forEach(b -> {
+        if (b.genre.equals("Fiction")) {
+            System.out.println("Fiction Book: " + b.title);
+        }
+    });
         for (Book b : library) {
             System.out.println("Title: " + b.title + ", Author: " + b.author + ", Price: $" + b.price + ", Genre: " + b.genre + ", ISBN: " + b.ISBN);
             System.out.println("-----------------------------");
